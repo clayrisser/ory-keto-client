@@ -58,7 +58,7 @@ export default class Keto {
     subject: string,
     action: string,
     resource: string
-  ): Promise<object> {
+  ): Promise<boolean> {
     const res = await axios.post(
       `${this.ketoBaseUrl}/warden/subjects/authorize`,
       {
@@ -67,6 +67,6 @@ export default class Keto {
         resource
       }
     );
-    return res.data;
+    return !!(res.data && res.data.allowed);
   }
 }

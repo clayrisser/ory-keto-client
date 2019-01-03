@@ -13,7 +13,7 @@ Please ★ this repo if you found it useful ★ ★ ★
 
 ## Features
 
-* unopinionated
+* compatible with typescript
 * supports multiple roles
 * supports custom policies
 
@@ -34,75 +34,33 @@ npm install --save ory-keto-client
 
 Import `ory-keto-client`
 ```js
-import { Policy, Role, Statement, Subject } from 'ory-keto-client';
+import Keto from 'ory-keto-client';
 ```
 
-Create statements
+Create keto instance
 ```js
-const statements = {
-  readFile: new Statement('read', 'file'),
-  readFolder: new Statement('read', 'folder'),
-  removeFile: new Statement('remove', 'file'),
-  removeFolder: new Statement('remove', 'folder'),
-  writeFile: new Statement('write', 'file'),
-  writeFolder: new Statement('write', 'folder')
-};
+const { env } = process;
+const keto = new Keto(env.KETO_BASE_URL || 'http://localhost:4466');
 ```
 
-Create policies from statements
+Create policy
 ```js
-const policies = {
-  readFile: new Policy('readFile', [statements.readFile]),
-  readFolder: new Policy('readFolder', [statements.readFolder]),
-  removeFile: new Policy('removeFile', [statements.removeFile]),
-  removeFolder: new Policy('removeFolder', [statements.removeFolder]),
-  writeFile: new Policy('readFile', [statements.writeFile]),
-  writeFolder: new Policy('readFolder', [statements.writeFolder]),
-  readAll: new Policy('readAll', [statements.readFile, statements.readFolder]),
-  removeAll: new Policy('removeAll', [
-    statements.removeFile,
-    statements.removeFolder
-  ]),
-  writeAll: new Policy('readAll', [
-    statements.writeFile,
-    statements.writeFolder
-  ]),
-  allFiles: new Policy('allFiles', [
-    statements.readFile,
-    statements.writeFile,
-    statements.removeFile
-  ]),
-  allFolders: new Policy('allFolders', [
-    statements.readFolder,
-    statements.writeFolder,
-    statements.removeFolder
-  ])
-};
+keto.createPolicy({
+  description: 'bob is allowed read the blog',
+  subjects: ['bob'],
+  effect: 'allow',
+  actions: ['read']
+  resources: ['blog'],
+})
 ```
 
-Create roles from policies
+Authorize subject
 ```js
-const roles = {
-  visitor: new Role('visitor', [policies.readAll]),
-  user: new Role('user', [policies.readAll, policies.writeAll]),
-  admin: new Role('admin', [policies.allFiles, policies.allFolders])
-};
-```
-
-Assign roles to subjects
-
-```js
-const someVisitor = new Subject('someVisitor', [roles.visitor]);
-const someAdmin = new Subject('someVisitor', [roles.admin]);
-```
-
-Check if subject can execute statement
-```js
-someVisitor.can(statements.readFile); // true
-someVisitor.can(statements.deleteFile); // false
-
-someAdmin.can(statements.readFile); // true
-someAdmin.can(statements.deleteFile); // true
+if (await keto.authorizeSubject('bob', 'read', 'blog')) {
+  console.log('Authorized');
+} else {
+  console.log('Not Authorized');
+}
 ```
 
 
