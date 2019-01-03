@@ -70,3 +70,5 @@ export default class Keto {
     return !!(res.data && res.data.allowed);
   }
 }
+
+export * from './types';
