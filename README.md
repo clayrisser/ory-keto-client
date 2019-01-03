@@ -69,14 +69,6 @@ if (await keto.authorizeSubject('bob', 'read', 'blog')) {
 Submit an [issue](https://github.com/codejamninja/ory-keto-client/issues/new)
 
 
-## Roadmap
-
-* Support role inheritance
-* Support blocking statements
-* Support resource ownership
-* Support role tagging
-
-
 ## Contributing
 
 Review the [guidelines for contributing](https://github.com/codejamninja/ory-keto-client/blob/master/CONTRIBUTING.md)
