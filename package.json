@@ -1,7 +1,7 @@
 {
   "name": "ory-keto-client",
   "version": "0.0.1",
-  "description": "unopinionated role based access control",
+  "description": "Ory Keto access control client for JavaScript and TypeScript",
   "keywords": [
     "access",
     "access-control",

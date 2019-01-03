@@ -6,7 +6,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/codejamninja/ory-keto-client.svg?label=Stars&style=flat-square)](https://github.com/codejamninja/ory-keto-client)
 
 
-> unopinionated role based access control
+> Ory Keto access control client for JavaScript and TypeScript
 
 Please ★ this repo if you found it useful ★ ★ ★
 
