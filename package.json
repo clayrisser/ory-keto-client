@@ -1,6 +1,6 @@
 {
   "name": "ory-keto-client",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Ory Keto access control client for JavaScript and TypeScript",
   "keywords": [
     "access",

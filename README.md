@@ -51,7 +51,7 @@ keto.createPolicy({
   effect: 'allow',
   actions: ['read']
   resources: ['blog'],
-})
+});
 ```
 
 Authorize subject
