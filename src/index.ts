@@ -57,14 +57,16 @@ export default class Keto {
   async authorizeSubject(
     subject: string,
     action: string,
-    resource: string
+    resource: string,
+    context?: object
   ): Promise<boolean> {
     const res = await axios.post(
       `${this.ketoBaseUrl}/warden/subjects/authorize`,
       {
-        subject,
         action,
-        resource
+        context,
+        resource,
+        subject
       }
     );
     return !!(res.data && res.data.allowed);
